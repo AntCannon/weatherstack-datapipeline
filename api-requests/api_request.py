@@ -44,7 +44,8 @@ def fetch_data(api_key=api_key, api_url=api_url, headers=headers, mock_json=mock
     except requests.exceptions.RequestException as e:
         print(f"An error occurred while fetching data: {e}")
         # Write mock data to file in case of an error
-        write_to_file(mock_json)
+        mock_weather_data = get_mock_weather_data()
+        write_to_file(mock_weather_data)
         raise
 
 

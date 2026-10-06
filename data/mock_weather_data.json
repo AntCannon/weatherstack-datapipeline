@@ -1,0 +1,54 @@
+{
+  "request": {
+    "type": "City",
+    "query": "New York, United States of America",
+    "language": "en",
+    "unit": "m"
+  },
+  "location": {
+    "name": "string",
+    "country": "string",
+    "region": "string",
+    "lat": "string",
+    "lon": "string",
+    "timezone_id": "string",
+    "localtime": "string",
+    "localtime_epoch": 0,
+    "utc_offset": "string"
+  },
+  "current": {
+    "observation_time": "string",
+    "temperature": 0,
+    "weather_code": 0,
+    "weather_icons": ["string"],
+    "weather_descriptions": ["string"],
+    "astro": {
+      "sunrise": "string",
+      "sunset": "string",
+      "moonrise": "string",
+      "moonset": "string",
+      "moon_phase": "string",
+      "moon_illumination": 0
+    },
+    "air_quality": {
+      "co": "string",
+      "no2": "string",
+      "o3": "string",
+      "so2": "string",
+      "pm2_5": "string",
+      "pm10": "string",
+      "us-epa-index": "string",
+      "gb-defra-index": "string"
+    },
+    "wind_speed": 0,
+    "wind_degree": 0,
+    "wind_dir": "string",
+    "pressure": 0,
+    "precip": 0,
+    "humidity": 0,
+    "cloudcover": 0,
+    "feelslike": 0,
+    "uv_index": 0,
+    "visibility": 0
+  }
+}

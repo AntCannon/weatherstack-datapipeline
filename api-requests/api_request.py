@@ -15,9 +15,7 @@ api_url = f"http://api.weatherstack.com/current?access_key={api_key}&query=Phila
 
 
 def get_mock_weather_data():
-    file_path = (
-        Path(__file__).resolve().parent.parent / "data" / "mock_weather_data.json"
-    )
+    file_path = Path(__file__).resolve().parent.parent / "data" / "weather_data.json"
     mock_weather_data = json.loads(file_path.read_text(encoding="utf-8"))
     return mock_weather_data
 

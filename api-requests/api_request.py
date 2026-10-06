@@ -15,9 +15,7 @@ api_url = f"http://api.weatherstack.com/current?access_key={api_key}&query=Phila
 
 
 def get_mock_weather_data():
-    file_path = (
-        Path(__file__).resolve().parent.parent / "data" / "mock_weather_data.json"
-    )
+    file_path = Path(__file__).resolve().parent.parent / "data" / "weather_data.json"
     mock_weather_data = json.loads(file_path.read_text(encoding="utf-8"))
     return mock_weather_data
 
@@ -29,7 +27,7 @@ def write_to_file(data, filename="weather_data.json"):
         print(f"Data written to {filename} successfully.")
 
 
-def fetch_data(api_key=api_key, api_url=api_url, headers=headers, mock_json=mock_json):
+def fetch_data(api_key=api_key, api_url=api_url, headers=headers):
     print("Fetching weather data...")
 
     # get data

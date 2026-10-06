@@ -1,9 +1,10 @@
 import os
 from dotenv import load_dotenv
 import psycopg2
-import api_request
+from api_request import get_mock_weather_data
 
 load_dotenv()
+
 
 # db configuration
 db_host = os.getenv("DB_HOST")
@@ -11,10 +12,6 @@ db_port = os.getenv("DB_PORT")
 db_name = os.getenv("DB_NAME")
 db_user = os.getenv("DB_USER")
 db_password = os.getenv("DB_PASSWORD")
-
-target_function_name = "get_mock_weather_data"
-target_function = getattr(api_request, target_function_name)
-target_data = target_function()
 
 
 def connect_to_db():
@@ -61,5 +58,63 @@ def create_table(conn):
         raise
 
 
-conn = connect_to_db()
-create_table(conn)
+def insert_records(conn, data):
+    print("Inserting weather data into the database...")
+
+    location = data["location"]
+    weather = data["current"]
+    astro = weather["astro"]
+
+    try:
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+            INSERT INTO dev.raw_weather_data (
+                city,
+                temperature,
+                weather_descriptions,
+                wind_speed,
+                time,
+                inserted_at,
+                utc_offset,
+                sunrise,
+                sunset
+            ) VALUES (%s, %s, %s, %s, %s, NOW(), %s, %s, %s)
+        """,
+            (
+                location["name"],
+                weather["temperature"],
+                weather["weather_descriptions"][0],
+                weather["wind_speed"],
+                location["localtime"],
+                location["utc_offset"],
+                astro["sunrise"],
+                astro["sunset"],
+            ),
+        )
+
+        conn.commit()
+        print("Data sucsessfully inserted.")
+
+    except psycopg2.Error as e:
+        print(f"Error inserting data into the database: {e}")
+        raise
+
+
+def main():
+    try:
+        data = get_mock_weather_data()
+        conn = connect_to_db()
+        create_table(conn)
+        insert_records(conn, data)
+
+    except Exception as e:
+        print(f"an error occurred during execution: {e}")
+
+    finally:
+        if "conn" in locals():
+            conn.close()
+            print("Database connection closed.")
+
+
+# main()

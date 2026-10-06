@@ -29,7 +29,7 @@ def write_to_file(data, filename="weather_data.json"):
         print(f"Data written to {filename} successfully.")
 
 
-def fetch_data(api_key=api_key, api_url=api_url, headers=headers, mock_json=mock_json):
+def fetch_data(api_key=api_key, api_url=api_url, headers=headers):
     print("Fetching weather data...")
 
     # get data

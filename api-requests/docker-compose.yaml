@@ -44,7 +44,7 @@ services:
     image: apache/airflow:3.3.2-python3.12
     command: standalone
     ports:
-      - 8000:8080
+      - 4040:8080
     environment:
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:${AIRFLOW_DB_PASSWORD:?Set AIRFLOW_DB_PASSWORD}@db:5432/airflowdb
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"

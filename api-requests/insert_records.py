@@ -94,7 +94,7 @@ def insert_records(conn, data):
         )
 
         conn.commit()
-        print("Data sucsessfully inserted.")
+        print("Data successfully inserted.")
 
     except psycopg2.Error as e:
         print(f"Error inserting data into the database: {e}")

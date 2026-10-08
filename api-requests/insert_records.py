@@ -110,6 +110,7 @@ def main():
 
     except Exception as e:
         print(f"an error occurred during execution: {e}")
+        raise
 
     finally:
         if "conn" in locals():

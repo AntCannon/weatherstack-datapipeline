@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 import psycopg2
-from api_request import get_mock_weather_data
+from api_request import get_mock_weather_data, fetch_data
 
 load_dotenv()
 
@@ -103,7 +103,8 @@ def insert_records(conn, data):
 
 def main():
     try:
-        data = get_mock_weather_data()
+        # data = get_mock_weather_data()
+        data = fetch_data()
         conn = connect_to_db()
         create_table(conn)
         insert_records(conn, data)

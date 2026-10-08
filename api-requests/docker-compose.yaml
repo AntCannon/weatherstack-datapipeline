@@ -53,6 +53,7 @@ services:
       DB_NAME: db
       DB_USER: db_user
       DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD}
+      API_KEY: ${API_KEY:?Set API_KEY}
     depends_on:
       airflow-db-setup:
         condition: service_completed_successfully

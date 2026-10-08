@@ -48,12 +48,20 @@ services:
     environment:
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:${AIRFLOW_DB_PASSWORD:?Set AIRFLOW_DB_PASSWORD}@db:5432/airflowdb
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_NAME: db
+      DB_USER: db_user
+      DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD}
     depends_on:
       airflow-db-setup:
         condition: service_completed_successfully
     volumes:
       - ./dags:/opt/airflow/dags:ro
       - airflow_logs:/opt/airflow/logs
+      - ./api_request.py:/opt/airflow/pipeline/api-requests/api_request.py:ro
+      - ./insert_records.py:/opt/airflow/pipeline/api-requests/insert_records.py:ro
+      - ../data:/opt/airflow/pipeline/data:ro
 
 
 volumes:

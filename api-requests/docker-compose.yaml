@@ -63,6 +63,7 @@ services:
       - ./api_request.py:/opt/airflow/pipeline/api-requests/api_request.py:ro
       - ./insert_records.py:/opt/airflow/pipeline/api-requests/insert_records.py:ro
       - ../data:/opt/airflow/pipeline/data:ro
+      - ./mock_weather.py:/opt/airflow/pipeline/api-requests/mock_weather.py:ro
 
 
 volumes:

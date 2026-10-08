@@ -1,6 +1,11 @@
+import sys
+
 from airflow.providers.standard.operators.python import PythonOperator
 from airflow.sdk import DAG
 from pendulum import datetime
+
+sys.path.insert(0, "/opt/airflow/pipeline/api-requests")
+from insert_records import main
 
 
 def example_task():
@@ -15,6 +20,6 @@ with DAG(
     catchup=False,
 ) as dag:
     test_task = PythonOperator(
-        task_id="test_airflow",
-        python_callable=example_task,
+        task_id="ingest_weather_data",
+        python_callable=main,
     )

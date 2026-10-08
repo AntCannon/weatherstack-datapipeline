@@ -38,6 +38,7 @@ def fetch_data(api_key=api_key, api_url=api_url, headers=headers):
         print(weather_data)
         # write data to file
         write_to_file(weather_data)
+        return weather_data
 
     except requests.exceptions.RequestException as e:
         print(f"An error occurred while fetching data: {e}")

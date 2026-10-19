@@ -16,7 +16,7 @@ with DAG(
     dag_id="weather_api_orchestrator",
     description="Load weather data into Postgres",
     start_date=datetime(2026, 10, 7, tz="America/New_York"),
-    schedule=None,
+    schedule="*/5 * * * *",
     catchup=False,
 ) as dag:
     test_task = PythonOperator(

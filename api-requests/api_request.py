@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from pathlib import Path
 import requests
 import json
+from mock_weather import generate_mock_weather
 
 # env configuration
 load_dotenv()
@@ -15,9 +16,7 @@ api_url = f"http://api.weatherstack.com/current?access_key={api_key}&query=Phila
 
 
 def get_mock_weather_data():
-    file_path = Path(__file__).resolve().parent.parent / "data" / "weather_data.json"
-    mock_weather_data = json.loads(file_path.read_text(encoding="utf-8"))
-    return mock_weather_data
+    return generate_mock_weather()
 
 
 def write_to_file(data, filename="weather_data.json"):
@@ -35,15 +34,16 @@ def fetch_data(api_key=api_key, api_url=api_url, headers=headers):
         response = requests.get(api_url, headers=headers)
         response.raise_for_status()  # Raise an error for bad responses (4xx and 5xx)
         weather_data = response.json()
-        print(weather_data)
+        # print(weather_data)
         # write data to file
-        write_to_file(weather_data)
+        # write_to_file(weather_data)
+        return weather_data
 
     except requests.exceptions.RequestException as e:
         print(f"An error occurred while fetching data: {e}")
         # Write mock data to file in case of an error
-        mock_weather_data = get_mock_weather_data()
-        write_to_file(mock_weather_data)
+        # mock_weather_data = get_mock_weather_data()
+        # write_to_file(mock_weather_data)
         raise
 
 

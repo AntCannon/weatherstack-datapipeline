@@ -54,6 +54,7 @@ services:
       DB_USER: db_user
       DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD}
       API_KEY: ${API_KEY:?Set API_KEY}
+      DBT_PROJECT_PATH: ${DBT_PROJECT_PATH:?Set DBT_PROJECT_PATH}
     depends_on:
       airflow-db-setup:
         condition: service_completed_successfully
@@ -64,7 +65,22 @@ services:
       - ./insert_records.py:/opt/airflow/pipeline/api-requests/insert_records.py:ro
       - ../data:/opt/airflow/pipeline/data:ro
       - ./mock_weather.py:/opt/airflow/pipeline/api-requests/mock_weather.py:ro
+      - /var/run/docker.sock:/var/run/docker.sock
 
+  dbt:
+    image: ghcr.io/dbt-labs/dbt-postgres:1.9.0
+    platform: linux/amd64
+    working_dir: /usr/app
+    command: ["--version"]
+    volumes:
+      - ../dbt:/usr/app
+    environment:
+      DBT_PROFILES_DIR: /usr/app      
+      DB_USER: ${DB_USER:?Set DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
 
 volumes:
   postgres_data:
